@@ -3,13 +3,13 @@ import { getAuth, GoogleAuthProvider} from "firebase/auth";
 
 const firebaseConfig = {
   // 🔹 your firebase config here
-    apiKey: "AIzaSyBODWBp7uO0tp_EjwIkuca-yaPxx1Fkslc",
-  authDomain: "interviewprepai-618ca.firebaseapp.com",
-  projectId: "interviewprepai-618ca",
-  storageBucket: "interviewprepai-618ca.firebasestorage.app",
-  messagingSenderId: "651094890329",
-  appId: "1:651094890329:web:0346dce7d2e4da66e75e48",
-  measurementId: "G-MV7QN9W6XY"
+    apiKey: import.meta.env.firebase.apiKey,
+  authDomain: import.meta.env.firebase.authDomain,
+  projectId: import.meta.env.firebase.projectId,
+  storageBucket: import.meta.env.firebase.storageBucket,
+  messagingSenderId: import.meta.env.firebase.apiKey.messagingSenderId,
+  appId: import.meta.env.firebase.apiKey.appId,
+  measurementId: import.meta.env.firebase.measurementId,
 };
 
 const app = initializeApp(firebaseConfig);
