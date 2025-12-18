@@ -1,14 +1,57 @@
 import mongoose from "mongoose";
 
-const learningCardSchema=new mongoose.Schema(
+// Sub-schema for each Q&A
+const questionAnswerSchema = new mongoose.Schema(
   {
-    role:{type:String , required:true},
-    topics:{type:String, required:true},
-    experience:{type:Number,require:true},
-    description:{type:String},
-    email:{type:String,required:true},
+    question: {
+      type: String,
+      required: true
+    },
+    theoreticalAnswer: {
+      type: String,
+      required: true
+    },
+    codingExample: {
+      type: String,
+      default: ""
+    }
   },
-  {timestamps:true}
+  { _id: false } // prevents extra _id for each item
 );
 
-export default mongoose.model("LearningCard",learningCardSchema);
+const learningCardSchema = new mongoose.Schema(
+  {
+    role: {
+      type: String,
+      required: true
+    },
+
+    topics: {
+      type: String,
+      required: true
+    },
+
+    experience: {
+      type: Number,
+      required: true
+    },
+
+    description: {
+      type: String
+    },
+
+    email: {
+      type: String,
+      required: true
+    },
+
+    // 👇 Array of JSON objects
+    questionAnswers: {
+      type: [questionAnswerSchema],
+      default: []
+    }
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model("LearningCard", learningCardSchema);

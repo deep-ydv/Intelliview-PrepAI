@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp, X, Code2 } from "lucide-react";
 import { InterviewContext } from "../../context/InterviewContext";
 import AutoCodeBlock from "./AutoCodeBlock";
 import LoadingScreen from "./LoadingScreen";
+import { UserContext } from "../../context/userContext";
 
 const qaData = [
   {
@@ -97,6 +98,8 @@ const [loading,setLoading]=useState(false);
   const [showCodeIndex, setShowCodeIndex] = useState(false);
 const [currIndex,setCurrIndex]=useState(0);
 const [updateDate,setUpdateDate]=useState("30 Oct 2025")
+const {user}=useContext(UserContext);
+
   const handleShowCode=(e,idx)=>{
     e.preventDefault();
     setShowCodeIndex(prev=>!prev);
@@ -167,6 +170,7 @@ const [updateDate,setUpdateDate]=useState("30 Oct 2025")
         console.log(parsed);
         // setAllQAData((prevData)=>[...prevData,parsed]);
       setQaList((prev)=>[...prev,...parsed]);
+
       
       // setResponseLoading(false);
       setGeminiData(true);
@@ -181,8 +185,33 @@ const [updateDate,setUpdateDate]=useState("30 Oct 2025")
     ai();
     getCurrentFormattedDate();
   }
+  const createLearningCard=async()=>{
+    try{
+      const response=await fetch("http://localhost:8000/api/learningcards",{
+      method:"POST",
+      headers:{ 
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+        "description": formData.description,
+        "email": user.email,
+        "experience": formData.experience,
+        "role": formData.role,
+        "topics": formData.topics,
+        "questionAnswers":qaList
+      }),
+    });
+    const data=await response.json();
+    if(data)console.log("Backend Response",data);;
+    }
+    catch(error){
+      console.log("Error in fetching ...", error);
+    }
+  }
   useEffect(()=>{
     console.log("updated qalist",qaList);
+   createLearningCard();
+      
   },[qaList])
   useEffect(()=>{
     console.log("Gemini Response Executed");

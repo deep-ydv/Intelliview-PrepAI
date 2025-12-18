@@ -6,7 +6,6 @@ import Pseudo from "./Pseudo";
 import ResponseLoader from "./ResponseLoader";
 const InterviewJourneyModal = ({ onClose }) => {
   const  {setFormData,responseLoading,setResponseLoading,setIsAdd}= useContext(InterviewContext);
-  const {user}=useContext(UserContext);
 const navigate=useNavigate();
   const [form, setForm] = useState({
     role: "",
@@ -22,26 +21,26 @@ const navigate=useNavigate();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    try{
-      const response=await fetch("http://localhost:8000/api/learningcards",{
-      method:"POST",
-      headers:{ 
-        "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-        "description": `${form.description}`,
-        "email": `${user.email}`,
-        "experience": `${form.experience}`,
-        "role": `${form.role}`,
-        "topics": `${form.topics}`,
-      }),
-    });
-    const data=await response.json();
-    if(data)console.log("Backend Response",data);;
-    }
-    catch(error){
-      console.log("Error in fetching ...", error);
-    }
+    // try{
+    //   const response=await fetch("http://localhost:8000/api/learningcards",{
+    //   method:"POST",
+    //   headers:{ 
+    //     "Content-Type":"application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     "description": `${form.description}`,
+    //     "email": `${user.email}`,
+    //     "experience": `${form.experience}`,
+    //     "role": `${form.role}`,
+    //     "topics": `${form.topics}`,
+    //   }),
+    // });
+    // const data=await response.json();
+    // if(data)console.log("Backend Response",data);;
+    // }
+    // catch(error){
+    //   console.log("Error in fetching ...", error);
+    // }
    
     console.log(form);
     setFormData(form);
