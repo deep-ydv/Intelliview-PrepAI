@@ -10,3 +10,4 @@ frontend/firebase.js
 firebase.js
 frontend/src/firebase
 frontend/src/firebase.js
+*.secret
